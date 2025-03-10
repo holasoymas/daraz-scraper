@@ -34,17 +34,17 @@ const Searchbar = () => {
   };
 
   return (
-    <form className="flex flex-wrap gap-4 mt-12" onSubmit={handleSubmit}>
+    <form className="flex items-center justify-center gap-4 mt-12 w-full" onSubmit={handleSubmit}>
       <input
         type="text"
         onChange={(e) => setSearchPrompt(e.target.value)}
         placeholder="Enter product link"
-        className="searchbar-input"
+        className="w-4/5 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
       />
 
       <button
         type="submit"
-        className="px-4 py-2 bg-black text-white rounded-md transition-opacity duration-200 disabled:opacity-50"
+        className="px-4 py-3 bg-black text-white rounded-md transition-opacity duration-200 disabled:opacity-50"
         disabled={searchPrompt === ''}
       >
         {isLoading ? 'Searching...' : 'Search'}
