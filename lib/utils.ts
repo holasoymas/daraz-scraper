@@ -1,4 +1,4 @@
-import { PriceHistoryItem } from "@/types";
+import { NotificationType, PriceHistoryItem, Product } from "@/types";
 
 export function parsePrice(value: string) {
   // Remove currency symbols and commas, preserve decimal points
@@ -52,3 +52,18 @@ export function getLowestPrice(priceList: PriceHistoryItem[]) {
 
   return lowestPrice.price;
 }
+
+export const getEmailNotifType = (
+  scrapedProduct: Product,
+  currentProduct: Product
+) => {
+  const lowestPrice = getLowestPrice(currentProduct.priceHistory);
+
+  // if newly fetch product is less than the lowest price in DB send lowest price Notification
+  if (scrapedProduct.currentPrice < lowestPrice) {
+    return "LOWEST_PRICE" as NotificationType;
+  }
+  return null;
+};
+
+
