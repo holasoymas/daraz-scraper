@@ -25,7 +25,6 @@ export type Product = {
 export type NotificationType =
   | "WELCOME"
   | "LOWEST_PRICE"
-  | "THRESHOLD_MET"
   ;
 
 export type EmailContent = {
