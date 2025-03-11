@@ -7,8 +7,9 @@ type Props = {
   params: { id: string }
 }
 
+const ProductDetails = async ({ params }: Props) => {
 
-const ProductDetails = async ({ params: { id } }: Props) => {
+  const { id } = await params;
 
   const product: Product = await getProductById(id);
 
@@ -77,7 +78,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             </a>
 
             {/* Track Price Button (opens <Modal>), a prompt box */}
-            <Modal />
+            <Modal productId={id} />
           </div>
         </div>
       </div>

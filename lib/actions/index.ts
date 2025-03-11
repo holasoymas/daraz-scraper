@@ -2,9 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import Product from "../models/product.model";
+import { User } from "@/types";
 import { connectToDB } from "../mongoose";
 import { scrapeDarazProduct } from "../scraper";
 import { getHighestPrice, getLowestPrice } from "../utils";
+import { generateEmailBody, sendEmail } from "../nodemailer";
 
 export async function scrapeAndStoreProduct(url: string) {
   if (!url) return;
@@ -68,6 +70,31 @@ export async function getAllProducts() {
   }
 }
 
+export async function addUserEmailToProduct(productId: string, email: string) {
+  try {
+    const product = await Product.findById(productId);
 
+    if (!product) return;
+
+    const userExists = product.users.some((user: User) => user.email === email);
+
+    if (!userExists) {
+      product.users.push({ email });
+
+      await product.save();
+
+      const productEmail = {
+        title: product.productTitle,
+        url: product.url,
+      }
+      const emailContent = generateEmailBody(productEmail, "WELCOME");
+
+      await sendEmail(emailContent, [email]);
+    }
+  } catch (error) {
+    console.log(error);
+
+  }
+}
 
 

@@ -18,17 +18,14 @@ export const metadata: Metadata = {
   description: "Scrape daraz to get the lowest price",
 };
 
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <main className="max-w-10xl mx-auto">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <main className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
           <Navbar />
           {children}
         </main>
@@ -36,3 +33,4 @@ export default function RootLayout({
     </html>
   );
 }
+
