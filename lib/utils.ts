@@ -1,3 +1,5 @@
+import { PriceHistoryItem } from "@/types";
+
 export function parsePrice(value: string) {
   // Remove currency symbols and commas, preserve decimal points
   let cleanedValue = value.replace(/[^\d.]/g, '');
@@ -25,4 +27,28 @@ export function parseCurrency(value: string) {
     return match[1] ? match[1].trim() : ''; // Returns currency symbol/word
   }
   throw new Error('Invalid format');
+}
+
+export function getHighestPrice(priceList: PriceHistoryItem[]) {
+  let highestPrice = priceList[0];
+
+  for (let i = 0; i < priceList.length; i++) {
+    if (priceList[i].price > highestPrice.price) {
+      highestPrice = priceList[i];
+    }
+  }
+
+  return highestPrice.price;
+}
+
+export function getLowestPrice(priceList: PriceHistoryItem[]) {
+  let lowestPrice = priceList[0];
+
+  for (let i = 0; i < priceList.length; i++) {
+    if (priceList[i].price < lowestPrice.price) {
+      lowestPrice = priceList[i];
+    }
+  }
+
+  return lowestPrice.price;
 }
